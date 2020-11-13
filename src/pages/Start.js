@@ -49,7 +49,7 @@ export default function Start() {
             isMounted = false;
         };
 
-    }, [amount, category, loadQuestions]);
+    }, [amount, category, loadQuestions, setIsLoading, setQuestions]);
 
     return (
         <div>
