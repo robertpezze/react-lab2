@@ -8,13 +8,20 @@ import Question from './pages/Question';
 import Loading from './Loading';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faListAlt } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
 
+const ContainerDiv = styled.div`
+    width: 30%;
+    margin: 20px auto;
+`;
 
 function App() {
 
     let routerRef = useRef();
 
-
+    //Reducer for the questions
     function reducer(state, action) {
 
         switch (action.type) {
@@ -35,7 +42,7 @@ function App() {
     let [isLoading, setIsLoading] = useState(false);
 
 
-
+    //Reset the questions and start over
     const reset = () => {
         setQuestions({type:'set', data:[]});
         routerRef.current.history.push('/');
@@ -45,17 +52,22 @@ function App() {
         <Router ref={routerRef}>
 
             <AppContext.Provider value={{questions, setQuestions, setIsLoading, reset}}>
-                <div style={{width: '30%', margin: '20px auto'}}>
-                    <h1>QuiziQuizi</h1>
+                <ContainerDiv>
+
+                    <h1>
+                        <FontAwesomeIcon icon={faListAlt} /> QuiziQuizi
+                    </h1>
+
                     <Switch>
                         <Route path="/" exact component={Start}/>
                         <Route path="/question/:question" exact component={Question}/>
                         <Route path="/result" exact component={Result}/>
                     </Switch>
-                </div>
+                </ContainerDiv>
 
                 <Loading isLoading={isLoading}/>
                 <ToastContainer/>
+                
             </AppContext.Provider>
         </Router>
     );

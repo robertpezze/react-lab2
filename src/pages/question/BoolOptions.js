@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Label = styled.label`
@@ -15,15 +15,11 @@ export default function BoolOptions({question, setAnswer}) {
         <div>
 
             <Label>
-                <input type="radio" checked={question.answer === true}
-                       onChange={(e) => setAnswer(true)}/>
-
+                <input type="radio" checked={question.answer === 'True'} onChange={() => setAnswer('True')}/>
                 Sant
             </Label>
             <Label>
-                <input type="radio" checked={question.answer === false}
-                       onChange={(e) => setAnswer(false)}/>
-
+                <input type="radio" checked={question.answer === 'False'} onChange={() => setAnswer('False')}/>
                 Falskt
             </Label>
 

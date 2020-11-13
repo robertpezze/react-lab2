@@ -14,6 +14,7 @@ const Button = styled.button`
 const CategoryDiv = styled.div`
     color: #777;
     font-size: 12px;
+    text-align: right;
 `;
 
 export default function Question({match, history}) {
@@ -52,13 +53,13 @@ export default function Question({match, history}) {
 
     return (
         <div>
-            <h2>Question {questionNumber}</h2>
+            <h2>Fråga {questionNumber}</h2>
             <CategoryDiv>
                 {unescape(question.category)}
-                <span>({question.difficulty})</span>
+                <span> ({question.difficulty})</span>
             </CategoryDiv>
 
-            <div>{unescape(question.question)}</div>
+            <div style={{padding: '20px'}}>{unescape(question.question)}</div>
 
             {question.type === 'boolean' && <BoolOptions question={question} setAnswer={setAnswer} />}
 

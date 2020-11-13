@@ -11,8 +11,12 @@ const Label = styled.label`
 
 export default function MultipleOptions({question, setAnswer}) {
 
-    let options = useMemo(() => [...question.incorrect_answers, question.correct_answer], [question]);
+    let options = useMemo(() => {
 
+        let options = [...question.incorrect_answers, question.correct_answer];
+        return options.sort(() => Math.random() - 0.5);
+
+    }, [question]);
 
     return (
         <div>

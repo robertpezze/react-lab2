@@ -3,18 +3,16 @@ import AppContext from '../AppContext';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-
-
 const Button = styled.button`
     height: 40px;
     width: 100%;
     font-size: 20px;
 `;
 
-
 const Select = styled.select`
     height: 40px;
     width:  100%;
+    margin: 20px 0;
 `;
 
 export default function Start() {
@@ -22,31 +20,45 @@ export default function Start() {
     let [amount, setAmount]     = useState(5);
     let [category, setCategory] = useState('');
 
-    const {setQuestions, setIsLoading} = React.useContext(AppContext);
+    const {questions, setQuestions, setIsLoading} = React.useContext(AppContext);
 
     //Fetch questions from api
     const loadQuestions = useCallback(() => {
 
-        setIsLoading(true);
-
-        fetch('http://api.heby.nu?amount=' + amount + '&category=' + category + '&encode=url3986').then((res) => {
+        return fetch('http://api.heby.nu?amount=' + amount + '&category=' + category + '&encode=url3986').then((res) => {
             return res.json();
-        }).then((res) => {
+        });
 
-            setQuestions({type: 'set', data: res.results});
-            setIsLoading(false);
+    }, [amount, category]);
+
+    useEffect(() => {
+
+        setIsLoading(true);
+        let isMounted = true;
+
+        loadQuestions().then((res) => {
+
+            if (isMounted) {
+                setQuestions({type: 'set', data: res.results});
+                setIsLoading(false);
+            }
 
         });
 
-    }, [amount, category, setIsLoading, setQuestions]);
+        return () => {
+            isMounted = false;
+        };
 
-    useEffect(() => {
-        loadQuestions();
     }, [amount, category, loadQuestions]);
 
     return (
         <div>
             <div>
+
+                <br/>
+                <br/>
+                <br/>
+
                 <div>
                     Hur många frågor vill ha?
                 </div>
@@ -92,9 +104,9 @@ export default function Start() {
                 </Select>
             </div>
 
-            <Link to="/question/1">
+            {questions.length > 0 && <Link to="/question/1">
                 <Button value="Starta Spelet">Starta Spelet</Button>
-            </Link>
+            </Link>}
         </div>
     );
 

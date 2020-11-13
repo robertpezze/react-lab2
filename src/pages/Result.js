@@ -24,10 +24,7 @@ export default function Result({history}) {
         return null;
     }
 
-    /**
-     * Summarize the correct answers
-     * @type {number}
-     */
+    //Summarize the correct answers
     let result = 0;
 
     questions.forEach((question, index) => {
@@ -40,14 +37,18 @@ export default function Result({history}) {
     return (
         <div style={{textAlign: "center"}}>
 
-            <h1>Result</h1>
+            <h1>Resultat</h1>
 
             <ResultDiv>
-                {result} out of {questions.length}
+                {result} rätt av {questions.length}
             </ResultDiv>
 
             <Button onClick={reset}>Börja OM</Button>
 
+            <br />
+            <br />
+            <br />
+            <br />
             <Facit />
 
         </div>

@@ -1,4 +1,4 @@
-import React, {} from 'react';
+import React from 'react';
 import loading from '../src/img/loading.gif';
 import styled from 'styled-components';
 
